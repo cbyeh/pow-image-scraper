@@ -1,4 +1,4 @@
-# Pictures of Walls Scraper
+# Pictures of Walls Image Downloader
 
 ![](example.gif)
 
