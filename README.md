@@ -10,7 +10,7 @@ To run:
 
 `python downloader.py`
 
-Downloads all main images from [Pictures of Walls](http:picturesofwalls.com), run and find them in the `out` directory
+Downloads all main images from [Pictures of Walls](http:picturesofwalls.com), use commands and find them in the `out` directory
 
 ## Dependencies
 
