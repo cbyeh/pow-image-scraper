@@ -2,9 +2,9 @@
 
 ![](example.gif)
 
-To download: `git clone https://github.com/cbyeh/Website-image-scraper.git`
+To download and run:
 
-To run:
+`git clone https://github.com/cbyeh/Website-image-scraper.git`
 
 `cd website-image-scraper`
 
