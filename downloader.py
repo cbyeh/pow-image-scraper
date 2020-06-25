@@ -18,7 +18,7 @@ def _is_valid(url):
 
 
 # As of June 2020, images before 142 are deprecated and latest is 16791
-for i in range(278, 16792):
+for i in range(142, 16792):
     url = base + extension.format(i)
     # Find image with id "main-image". We are only interested in the main photo in the Database
     response = requests.get(url)
