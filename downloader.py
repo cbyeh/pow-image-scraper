@@ -18,7 +18,7 @@ def _is_valid(url):
 
 
 # As of June 2020, images before 142 are deprecated and latest is 16791
-for i in range(142, 16792):
+for i in range(278, 16792):
     url = base + extension.format(i)
     # Find image with id "main-image". We are only interested in the main photo in the Database
     response = requests.get(url)
@@ -27,7 +27,7 @@ for i in range(142, 16792):
         img_extension = soup.find(id='main-image')['src']
         img_url = base + img_extension  # Url of image
         # Write file
-        if _is_valid(img_url):
+        if _is_valid(img_url) and (img_extension.endswith('.jpg') or img_extension.endswith('.jpeg') or img_extension.endswith('.png')):
             print('Downloading from id: ' + str(i) + ' at: ' + img_url)
             # Download with filename as id.{original filename}
             urlretrieve(img_url, 'out/' + str(i) + '.' + img_extension[19:])
