@@ -12,6 +12,8 @@ To download and run:
 
 Downloads all main images from [Pictures of Walls](http:picturesofwalls.com), use commands and find them in the `out` directory
 
+Now has multithreading for faster queued downloads
+
 ## Dependencies
 
 Requires python 3, Beautiful Soup and requests
@@ -19,3 +21,7 @@ Requires python 3, Beautiful Soup and requests
 `pip install beautifulsoup4`
 
 `pip install requests`
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
