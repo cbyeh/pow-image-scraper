@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from urllib.request import urlretrieve
 # For src images in id main-img text that contain invalids like ' ' and (1)
 from urllib.parse import quote
-# Multithreading without a queue for faster downloads
+# Multithreading for faster downloads
 import threading
 
 base = 'http://picturesofwalls.com/'
@@ -28,7 +28,7 @@ def _download(url):
     urlretrieve(img_url, 'out/' + str(i) + '.' + img_extension[19:])
 
 
-# Create thread to download
+# Create thread for async downloads
 def _create_download_thread(url):
     download_thread = threading.Thread(
         target=_download, args=(url,))
