@@ -6,7 +6,7 @@ To download and run:
 
 `git clone https://github.com/cbyeh/Website-image-scraper.git`
 
-`cd website-image-scraper`
+`cd pow-image-scraper`
 
 `python downloader.py`
 
