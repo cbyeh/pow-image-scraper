@@ -23,15 +23,15 @@ def _is_valid(url):
 
 
 # Download with filename as id.{original filename}
-def _download(url):
-    print('Downloading from id: ' + str(i) + ' at: ' + img_url)
-    urlretrieve(img_url, 'out/' + str(i) + '.' + img_extension[19:])
+def _download(url, index):
+    print('Downloading from id: ' + str(index) + ' at: ' + img_url)
+    urlretrieve(img_url, 'out/' + str(index) + '.' + img_extension[19:])
 
 
 # Create thread for async downloads
-def _create_download_thread(url):
+def _create_download_thread(url, index):
     download_thread = threading.Thread(
-        target=_download, args=(url,))
+        target=_download, args=(url, index))
     download_thread.start()
 
 
@@ -46,4 +46,4 @@ for i in range(142, 16792):
         img_url = base + img_extension  # url of image
         # Write file
         if _is_valid(img_url):
-            _create_download_thread(img_url)
+            _create_download_thread(img_url, i)
