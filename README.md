@@ -4,7 +4,7 @@
 
 To download and run:
 
-`git clone https://github.com/cbyeh/Website-image-scraper.git`
+`git clone https://github.com/cbyeh/pow-image-scraper.git`
 
 `cd pow-image-scraper`
 
