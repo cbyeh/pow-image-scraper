@@ -14,13 +14,15 @@ Downloads all main images from [Pictures of Walls](http:picturesofwalls.com), us
 
 Now has multithreading for faster queued downloads
 
+Running to completion should yield 14,235 images totaling 2.62 GB
+
 ## Dependencies
 
-Requires python 3, Beautiful Soup and requests
+Requires Python, Beautiful Soup and Requests
 
-`pip install beautifulsoup4`
+`pip3 install beautifulsoup4`
 
-`pip install requests`
+`pip3 install requests`
 
 ## License
 
