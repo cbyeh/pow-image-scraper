@@ -10,7 +10,11 @@ To download and run:
 
 `python downloader.py`
 
-Downloads all main images from [Pictures of Walls](http:picturesofwalls.com), use commands and find them in the `pow` directory
+Or download as .exe from [here](https://github.com/cbyeh/pow-image-scraper/releases/download/v1.0/pow_downloader.exe)
+
+# About
+
+Downloads all main images from [Pictures of Walls](http:picturesofwalls.com), find them in the `pow` directory
 
 Now has multithreading for faster queued downloads
 
@@ -18,7 +22,7 @@ Running to completion should yield 14,235 images totaling 2.62 GB
 
 ## Dependencies
 
-Requires Python, Beautiful Soup and Requests
+Requires Python, Beautiful Soup and Requests if running from the command line
 
 `pip3 install beautifulsoup4`
 
