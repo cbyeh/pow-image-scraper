@@ -10,7 +10,7 @@ To download and run:
 
 `python downloader.py`
 
-Downloads all main images from [Pictures of Walls](http:picturesofwalls.com), use commands and find them in the `out` directory
+Downloads all main images from [Pictures of Walls](http:picturesofwalls.com), use commands and find them in the `pow` directory
 
 Now has multithreading for faster queued downloads
 

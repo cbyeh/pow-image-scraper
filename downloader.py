@@ -3,6 +3,7 @@
 # Author: cbyeh
 # License: MIT
 import requests
+import os
 from bs4 import BeautifulSoup
 from urllib.request import urlretrieve
 # For src images in id main-img text that contain invalids like ' ' and (1)
@@ -15,8 +16,13 @@ base = 'http://picturesofwalls.com/'
 # we can set album to 0 and still load all images
 extension = 'gallery.asp?album=0&id={0}'
 
+# Create out folder
+if not os.path.exists('pow'):
+    os.makedirs('pow')
 
 # Check whether url can load
+
+
 def _is_valid(url):
     request = requests.head(url)
     return request.status_code == requests.codes.ok
@@ -25,7 +31,7 @@ def _is_valid(url):
 # Download with filename as id.{original filename}
 def _download(url, index):
     print('Downloading from id: ' + str(index) + ' at: ' + img_url)
-    urlretrieve(img_url, 'out/' + str(index) + '.' + img_extension[19:])
+    urlretrieve(img_url, 'pow/' + str(index) + '.' + img_extension[19:])
 
 
 # Create thread for async downloads
