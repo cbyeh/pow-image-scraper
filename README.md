@@ -12,7 +12,7 @@ To download and run:
 
 Or download as .exe from [here](https://github.com/cbyeh/pow-image-scraper/releases/download/v1.0/pow_downloader.exe)
 
-# About
+## About
 
 Downloads all main images from [Pictures of Walls](http:picturesofwalls.com), find them in the `pow` directory
 
