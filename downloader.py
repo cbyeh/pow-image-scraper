@@ -20,9 +20,8 @@ extension = 'gallery.asp?album=0&id={0}'
 if not os.path.exists('pow'):
     os.makedirs('pow')
 
+
 # Check whether url can load
-
-
 def _is_valid(url):
     request = requests.head(url)
     return request.status_code == requests.codes.ok
