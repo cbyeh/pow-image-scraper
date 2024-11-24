@@ -1,54 +1,70 @@
-# Quick script to scrape masked images from picturesofwalls.com without regular expressions
-# Dependencies: `pip install beautifulsoup4` `pip install requests`
-# Author: cbyeh
-# License: MIT
 import requests
 import os
 from bs4 import BeautifulSoup
-from urllib.request import urlretrieve
-# For src images in id main-img text that contain invalids like ' ' and (1)
 from urllib.parse import quote
-# Multithreading for faster downloads
 import threading
+import time
+from random import uniform
 
 base = 'http://picturesofwalls.com/'
-# As images are associated with a page and each image has a unique id
-# we can set album to 0 and still load all images
 extension = 'gallery.asp?album=0&id={0}'
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+    'Referer': 'http://picturesofwalls.com/'
+}
+thread_semaphore = threading.Semaphore(10)
 
-# Create out folder
+# Create output folder
 if not os.path.exists('pow'):
     os.makedirs('pow')
 
+session = requests.Session()
+session.headers.update(HEADERS)
 
-# Check whether url can load
+# Fetch cookies by visiting the base page
+session.get(base, headers=HEADERS)
+
 def _is_valid(url):
-    request = requests.head(url)
-    return request.status_code == requests.codes.ok
+    try:
+        request = session.head(url)
+        return request.status_code == requests.codes.ok
+    except requests.RequestException as e:
+        print(f"Error checking URL {url}: {e}")
+        return False
 
-
-# Download with filename as id.{original filename}
 def _download(url, index):
-    print('Downloading from id: ' + str(index) + ' at: ' + img_url)
-    urlretrieve(img_url, 'pow/' + str(index) + '.' + img_extension[19:])
+    try:
+        print(f'Downloading from id: {index} at: {url}')
+        response = session.get(url, stream=True)
+        if response.status_code == 200:
+            with open(f'pow/{index}.jpg', 'wb') as f:
+                for chunk in response.iter_content(1024):
+                    f.write(chunk)
+            print(f"Successfully downloaded {url}")
+        else:
+            print(f"Failed to download {url}: HTTP {response.status_code}")
+    except Exception as e:
+        print(f"Failed to download {url}: {e}")
 
-
-# Create thread for async downloads
 def _create_download_thread(url, index):
-    download_thread = threading.Thread(
-        target=_download, args=(url, index))
+    def download_wrapper():
+        with thread_semaphore:
+            _download(url, index)
+    download_thread = threading.Thread(target=download_wrapper)
     download_thread.start()
 
-
-# Add all images to Queue. As of June 2020, images before 142 are deprecated and latest is 16791
-for i in range(142, 16792):
+for i in range(142, 16848):
     url = base + extension.format(i)
-    # Find image with id "main-image". We are only interested in the main photo in the Database
-    response = requests.get(url)
-    if _is_valid(url) and response.ok:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        img_extension = quote(soup.find(id='main-image')['src'])
-        img_url = base + img_extension  # url of image
-        # Write file
-        if _is_valid(img_url):
-            _create_download_thread(img_url, i)
+    try:
+        response = session.get(url)
+        if _is_valid(url) and response.ok:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            img_tag = soup.find(id='main-image')
+            if img_tag and 'src' in img_tag.attrs:
+                img_extension = quote(img_tag['src'])
+                img_url = base + img_extension
+                if _is_valid(img_url):
+                    _create_download_thread(img_url, i)
+        time.sleep(uniform(1, 3))  # Random delay
+    except Exception as e:
+        print(f"Error processing page {i}: {e}")
